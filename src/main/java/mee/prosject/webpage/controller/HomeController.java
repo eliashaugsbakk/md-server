@@ -9,8 +9,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("title", "Spring Boot testside");
-        model.addAttribute("message", "Applikasjonen kjører");
+        model.addAttribute("title", "Spring Boot test site");
+        model.addAttribute("message", "Application is running");
         return "home";
     }
 }
