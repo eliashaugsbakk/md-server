@@ -6,7 +6,7 @@ public record Page(
         long id,
         String title,
         String slug, // a unique url safe version of the page title
-        Instant created_at,
+        Instant createdAt,
         String markdown,
         String html
 ) {}

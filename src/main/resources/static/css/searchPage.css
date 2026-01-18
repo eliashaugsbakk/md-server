@@ -14,9 +14,9 @@ body {
 
 /* Header */
 header {
-    background-color: #f8f9fa;
+    background-color: #ddd;
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #a6a6a6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -80,10 +80,14 @@ article p {
     margin-bottom: 1rem;
 }
 
+article img {
+    float: right;
+}
+
 /* Footer */
 footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #ddd;
+    background-color: #ddd;
+    border-top: 1px solid #a6a6a6;
     text-align: center;
     padding: 0.5rem;
     font-size: 0.9rem;

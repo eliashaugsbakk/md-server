@@ -1,4 +1,4 @@
-package mee.prosject.webpage.service;
+package mee.prosject.webpage.service.page;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
@@ -41,5 +41,4 @@ public class PageContentService {
     private static String normalize(String s) {
         return s.toLowerCase(Locale.ROOT).replaceAll("\\s+", "");
     }
-
 }

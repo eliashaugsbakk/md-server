@@ -1,4 +1,4 @@
-package mee.prosject.webpage.service;
+package mee.prosject.webpage.service.page;
 
 import mee.prosject.webpage.model.Page;
 import mee.prosject.webpage.model.PageMetaData;
@@ -19,11 +19,10 @@ public class PageRepository {
         this.dataSource = dataSource;
     }
 
-    public Collection<PageMetaData> getAllPages() throws SQLException {
+    public Collection<PageMetaData> getAllPagesMetaData() throws SQLException {
         String sql = """
-        SELECT p.id, p.title, p.slug, p.created_at
-        FROM wiki_pages p
-        JOIN wiki_pages_content c ON p.id = c.page_id
+        SELECT p.id, p.title, p.slug, p.createdAt
+        FROM pages p
         """;
 
         List<PageMetaData> pages = new ArrayList<>();
@@ -37,45 +36,32 @@ public class PageRepository {
                         rs.getLong("id"),
                         rs.getString("title"),
                         rs.getString("slug"),
-                        rs.getTimestamp("created_at").toInstant()
+                        rs.getTimestamp("createdAt").toInstant()
                 );
                 pages.add(page);
             }
         }
-
         return pages;
     }
 
     public boolean addPage(Page page) {
-        String insertMeta = """
-            INSERT INTO wiki_pages (id, title, slug, created_at)
-            VALUES (?, ?, ?, ?)
-        """;
-
-        String insertContent = """
-            INSERT INTO wiki_pages_content (page_id, markdown, html)
-            VALUES (?, ?, ?)
-        """;
+        String insertData = """
+        INSERT INTO pages (id, title, slug, createdAt, markdown, html)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """;
 
         try (Connection conn = dataSource.getConnection()) {
             conn.setAutoCommit(false); // start transaction
 
-            try (PreparedStatement psMeta = conn.prepareStatement(insertMeta);
-                 PreparedStatement psContent = conn.prepareStatement(insertContent)) {
+            try (PreparedStatement psData = conn.prepareStatement(insertData)) {
+                psData.setLong(1, page.id());
+                psData.setString(2, page.title());
+                psData.setString(3, page.slug());
+                psData.setTimestamp(4, Timestamp.from(page.createdAt()));
+                psData.setString(5, page.markdown());
+                psData.setString(6, page.html());
 
-                // Insert metadata
-                psMeta.setLong(1, page.id());
-                psMeta.setString(2, page.title());
-                psMeta.setString(3, page.slug());
-                psMeta.setTimestamp(4, Timestamp.from(page.created_at()));
-                psMeta.executeUpdate();
-
-                // Insert content
-                psContent.setLong(1, page.id());
-                psContent.setString(2, page.markdown());
-                psContent.setString(3, page.html());
-                psContent.executeUpdate();
-
+                psData.executeUpdate();
                 conn.commit();
                 return true;
             } catch (SQLException ex) {
@@ -83,89 +69,104 @@ public class PageRepository {
                 ex.printStackTrace();
                 return false;
             } finally {
-                conn.setAutoCommit(true);
+                try {
+                    conn.setAutoCommit(true);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
-    public boolean deletePage(Long id) {
-        String deleteMeta = "DELETE FROM wiki_pages WHERE id = ?";
+    public boolean deletePage(long pageId) {
+        String deleteSql = "DELETE FROM pages WHERE id = ?";
 
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement(deleteMeta)) {
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false); // start transaction
 
-            ps.setLong(1, id);
-            int affected = ps.executeUpdate();
-            return affected > 0;
+            try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
+                ps.setLong(1, pageId);
+                int affectedRows = ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+                conn.commit();
+                return affectedRows > 0; // true if a row was deleted
+            } catch (SQLException ex) {
+                conn.rollback();
+                ex.printStackTrace();
+                return false;
+            } finally {
+                try {
+                    conn.setAutoCommit(true);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
-        }    }
+        }
+    }
+
 
     public Page getPageById(long id) {
-        String sql = """
-            SELECT p.id, p.title, p.slug, p.created_at, c.markdown, c.html
-            FROM wiki_pages p
-            JOIN wiki_pages_content c ON p.id = c.page_id
-            WHERE p.id = ?
-        """;
+        String sql = "SELECT id, title, slug, createdAt, markdown, html FROM pages WHERE id = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setLong(1, id);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Page(
                             rs.getLong("id"),
                             rs.getString("title"),
                             rs.getString("slug"),
-                            rs.getTimestamp("created_at").toInstant(),
+                            rs.getTimestamp("createdAt").toInstant(),
                             rs.getString("markdown"),
                             rs.getString("html")
                     );
+                } else {
+                    return null; // no page found
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
         }
+    }
 
-        return null;    }
 
     public Page getPageBySlug(String slug) {
-        String sql = """
-            SELECT p.id, p.title, p.slug, p.created_at, c.markdown, c.html
-            FROM wiki_pages p
-            JOIN wiki_pages_content c ON p.id = c.page_id
-            WHERE p.slug = ?
-        """;
+        String sql = "SELECT id, title, slug, createdAt, markdown, html FROM pages WHERE slug = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, slug);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Page(
                             rs.getLong("id"),
                             rs.getString("title"),
                             rs.getString("slug"),
-                            rs.getTimestamp("created_at").toInstant(),
+                            rs.getTimestamp("createdAt").toInstant(),
                             rs.getString("markdown"),
                             rs.getString("html")
                     );
+                } else {
+                    return null; // no page found
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

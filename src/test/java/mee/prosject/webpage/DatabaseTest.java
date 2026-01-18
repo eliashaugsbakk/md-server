@@ -2,14 +2,14 @@ package mee.prosject.webpage;
 
 import mee.prosject.webpage.model.Page;
 import mee.prosject.webpage.model.PageMetaData;
-import mee.prosject.webpage.service.PageContentService;
-import mee.prosject.webpage.service.PageCreator;
-import mee.prosject.webpage.service.PageRegistry;
-import mee.prosject.webpage.service.PageRepository;
+import mee.prosject.webpage.service.page.PageContentService;
+import mee.prosject.webpage.service.page.PageCreator;
+import mee.prosject.webpage.service.page.PageRegistry;
+import mee.prosject.webpage.service.page.PageRepository;
 import org.h2.jdbcx.JdbcDataSource;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class DatabaseTest {
         return ds;
     }
 
-    private void initSchema(DataSource ds) throws SQLException {
+    private void initSchema(@NonNull DataSource ds) throws SQLException {
         try (Connection c = ds.getConnection();
              Statement s = c.createStatement()) {
 
@@ -36,7 +36,7 @@ public class DatabaseTest {
                 id BIGINT PRIMARY KEY,
                 title VARCHAR(255),
                 slug VARCHAR(255) NOT NULL UNIQUE,
-                created_at TIMESTAMP
+                createdAt TIMESTAMP
             )
         """);
 

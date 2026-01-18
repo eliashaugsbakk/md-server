@@ -1,3 +1,0 @@
-# Page One
-
-Notting much to see here yet...

@@ -1,4 +1,4 @@
-package mee.prosject.webpage.service;
+package mee.prosject.webpage.service.page;
 
 import jakarta.annotation.PostConstruct;
 import mee.prosject.webpage.model.PageMetaData;
@@ -29,7 +29,7 @@ public class PageRegistry {
     }
 
     public void refreshFromDb() throws SQLException {
-        Collection<PageMetaData> allPages = pageRepository.getAllPages();
+        Collection<PageMetaData> allPages = pageRepository.getAllPagesMetaData();
 
         Map<Long, PageMetaData> newIdIndex = new HashMap<>();
         Map<String, PageMetaData> newSlugIndex = new HashMap<>();

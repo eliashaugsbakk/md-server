@@ -1,9 +1,9 @@
 package mee.prosject.webpage.controller;
 
 import mee.prosject.webpage.model.Page;
-import mee.prosject.webpage.service.PageContentService;
-import mee.prosject.webpage.service.PageRegistry;
-import mee.prosject.webpage.service.PageRepository;
+import mee.prosject.webpage.service.page.PageContentService;
+import mee.prosject.webpage.service.page.PageRegistry;
+import mee.prosject.webpage.service.page.PageRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

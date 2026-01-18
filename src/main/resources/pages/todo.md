@@ -4,14 +4,15 @@
 - Separate home / landing page (separate CSS)
 - Make the left column hold page chapters, like an index of the page
 - Create a separate navigation/index page to view and navigate all different pages
-- Database with pages, metadata and images (and other media?)
+- Database with pages and images (and other media?)
 - Propper support for images (thumbnails / compression / format normalization)
 - Add tags to categorize each page
 - Searching for pages
 - Method to deploy new pages (Site should update automatically) (**safety considerations**)
 - Make the site prettier
-
+- Security
 ---
 ### Not sure about:
 - Create a page hierarchy to categorize every page (Health > Physical > Nutrition)
 - Analytics (Keep track of page visits)
+- Stream large files(mainly pictures) directly from DB to the http response.

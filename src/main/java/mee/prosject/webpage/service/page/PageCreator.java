@@ -1,4 +1,4 @@
-package mee.prosject.webpage.service;
+package mee.prosject.webpage.service.page;
 
 import mee.prosject.webpage.model.Page;
 import mee.prosject.webpage.model.PageMetaData;
@@ -30,7 +30,7 @@ public class PageCreator {
         long id = page.id();
         String title = page.title();
         String slug = page.slug();
-        Instant createdAt = page.created_at();
+        Instant createdAt = page.createdAt();
         return new PageMetaData(id, title, slug, createdAt);
     }
 
