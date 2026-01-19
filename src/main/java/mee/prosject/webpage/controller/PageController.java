@@ -49,7 +49,6 @@ public class PageController {
     // Show page for search
     @GetMapping("/search")
     public String viewSearch(@RequestParam("q") String searchTerm, Model model) {
-        System.out.println("Trying to access " + searchTerm);
         model.addAttribute("title", "Search: " + searchTerm);
         model.addAttribute("results", pageContentService.searchFor(searchTerm));
         model.addAttribute("pages", registry.getAllPages());

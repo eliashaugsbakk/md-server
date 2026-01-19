@@ -16,8 +16,9 @@ public class ImageController {
         this.imageRepository = imageRepository;
     }
 
-    @GetMapping("/images/{id}")
+    @GetMapping("/db/images/{id}")
     public ResponseEntity<byte[]> serveImage(@PathVariable long id) {
+      System.out.println("Serving image id=" + id);
         Image image = imageRepository.getImageById(id);
         if (image == null) {
             return ResponseEntity.notFound().build();

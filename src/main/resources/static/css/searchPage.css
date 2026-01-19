@@ -1,18 +1,18 @@
-/* Basic reset */
+/* basic reset */
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: arial, sans-serif;
     line-height: 1.5;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
-/* Header */
+/* header */
 header {
     background-color: #ddd;
     padding: 1rem;
@@ -31,13 +31,13 @@ header input[type="search"] {
     font-size: 1rem;
 }
 
-/* Main layout */
+/* main layout */
 main {
     display: flex;
     flex: 1;
 }
 
-/* Sidebar */
+/* sidebar */
 aside {
     width: 200px;
     background-color: #f0f0f0;
@@ -62,7 +62,7 @@ aside a:hover {
     text-decoration: underline;
 }
 
-/* Content area */
+/* content area */
 article {
     flex: 1;
     padding: 2rem;
@@ -84,7 +84,7 @@ article img {
     float: right;
 }
 
-/* Footer */
+/* footer */
 footer {
     background-color: #ddd;
     border-top: 1px solid #a6a6a6;
@@ -93,7 +93,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Links in content */
+/* links in content */
 article a {
     color: #007bff;
     text-decoration: none;

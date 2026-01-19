@@ -10,7 +10,8 @@
 
 <header>
     <h1>
-        <a th:href="@{/}" style="text-decoration: none; color: inherit;">My Website</a>
+        <a href="/"><img src="/images/logo.webp"
+                         alt="My page" style="width:42px;height:42px;"></a>
     </h1>
     <form method="get" action="/search">
         <label>
@@ -37,7 +38,7 @@
                 <a th:href="@{|/${result.slug}|}" th:text="${result.title}"></a>
             </li>
         </ul>
-        <img src="/images/search-image-id" alt="Search Image">
+        <img src="/images/search-image.webp" alt="Search Image">
     </article>
 </main>
 
