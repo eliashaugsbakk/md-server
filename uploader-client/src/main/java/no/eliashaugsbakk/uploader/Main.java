@@ -1,5 +1,6 @@
 package no.eliashaugsbakk.uploader;
 
+import no.eliashaugsbakk.uploader.security.AuthService;
 import no.eliashaugsbakk.uploader.service.NetworkService;
 import no.eliashaugsbakk.uploader.util.HashUtils;
 
@@ -9,11 +10,10 @@ public class Main {
   static void main() throws Exception {
     int TOR_PORT = 9050;
     String onionUrl = "http://p2r7lchnztd2vs5c6uc4eh4skrxv467ya6ewwrny4rdknmozwkbcouid.onion/upload";
-    String token = "";
+    String token = new AuthService().generateAuthKey(32);
 
-    NetworkService network = new NetworkService(onionUrl, token, TOR_PORT);
+    System.out.println("Token: " + token);
 
-
-    network.testConnectivity();
+    new NetworkService(onionUrl, token, TOR_PORT).testConnectivity();
   }
 }
