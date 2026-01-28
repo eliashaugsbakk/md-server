@@ -4,9 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>mee.project.webpage</groupId>
-    <artifactId>uploader-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>no.eliashaugsbakk</groupId>
+    <artifactId>uploader</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>webpage</name>
+    <description>Client to upload pages to webpage project</description>
 
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
