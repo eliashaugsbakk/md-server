@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="967c16ec-ba46-4dab-861f-aaaed2984e5d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/WebApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/WebApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/controller/ImageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/model/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/model/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/model/ImageMetaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/model/ImageMetaData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/model/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/model/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/model/PageMetaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/model/PageMetaData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/media/ImageCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/media/ImageCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/media/ImageRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/media/ImageRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/media/ImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/media/ImageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/page/PageContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/page/PageContentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/page/PageCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/page/PageCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/page/PageRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/page/PageRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mee/prosject/webpage/service/page/PageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/java/mee/prosject/webpage/service/page/PageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pages/todo.md" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/pages/todo.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/homePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/static/css/homePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/searchPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/static/css/searchPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/wikiPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/static/css/wikiPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/logo.webp" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/static/images/logo.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/search-image.webp" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/static/images/search-image.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/homePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/templates/homePage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/page-not-found.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/templates/page-not-found.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/searchPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/templates/searchPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/wikiPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/main/resources/templates/wikiPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/mee/prosject/webpage/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/test/java/mee/prosject/webpage/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/mee/prosject/webpage/WebpageApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-server/src/test/java/mee/prosject/webpage/WebpageApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="38si70Y4MLfXSpx8XbOjTUvZpMV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "last_opened_file_path": "/home/elias/Documents/Prosjekter/persoal-website/web-server"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="967c16ec-ba46-4dab-861f-aaaed2984e5d" name="Changes" comment="" />
+      <created>1769594508881</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769594508881</updated>
+    </task>
+    <servers />
+  </component>
+</project>
