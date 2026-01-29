@@ -67,9 +67,19 @@ public class NetworkService {
     try (Response response = client.newCall(request).execute()) {
       System.out.println("Server is hit");
       System.out.println("Status code: " + response.code());
+    } catch (java.net.ConnectException e) {
+      // This catches "Connection Refused" (Tor is off)
+      System.err.println("\n[!] CONNECTION REFUSED");
+      System.err.println("    Could not connect to the Tor proxy.");
+      System.err.println("    Verify that the local Tor Browser or Daemon is running.");
+      System.err.println("    Is the Tor Browser or Daemon running?");
+    } catch (java.net.SocketException e) {
+      System.err.println("\n[!] NETWORK ERROR: " + e.getMessage());
+      System.err.println("    Verify that the port is pointing to the local Tor daemon.");
+      System.err.println("    Verify that the local Tor Browser or Daemon is running.");
+      System.err.println("    Is the server running correctly?");
     } catch (IOException e) {
-      System.err.println("Could not reach server: " + e.getMessage());
-      e.printStackTrace();
+      System.err.println("\n[X] I/O ERROR: " + e.getMessage());
     }
   }
 }
