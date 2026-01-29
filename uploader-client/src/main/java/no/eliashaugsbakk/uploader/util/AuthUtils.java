@@ -1,4 +1,4 @@
-package no.eliashaugsbakk.uploader.security;
+package no.eliashaugsbakk.uploader.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 /**
  * Generation of authentication tokens
  */
-public class AuthService {
+public class AuthUtils {
   final String chrs = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   static final SecureRandom secureRandom;
 

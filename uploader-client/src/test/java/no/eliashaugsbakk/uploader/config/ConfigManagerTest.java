@@ -1,6 +1,6 @@
 package no.eliashaugsbakk.uploader.config;
 
-import no.eliashaugsbakk.uploader.security.AuthService;
+import no.eliashaugsbakk.uploader.util.AuthUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class ConfigManagerTest {
     configManager.setPort(100);
     String previousToken = configManager.readToken();
 
-    configManager.setToken(new AuthService().generateAuthKey(32));
+    configManager.setToken(new AuthUtils().generateAuthKey(32));
 
     assertNotEquals(previousToken, configManager.readToken());
     assertEquals("test-url", configManager.readUrl());

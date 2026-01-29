@@ -1,6 +1,6 @@
 package no.eliashaugsbakk.uploader.config;
 
-import no.eliashaugsbakk.uploader.security.AuthService;
+import no.eliashaugsbakk.uploader.util.AuthUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,7 +39,7 @@ public class ConfigManager {
 
     if (hasKey("[auth-token]")) {
       configLines.add("[auth-token]");
-      String authKey = new AuthService().generateAuthKey(32);
+      String authKey = new AuthUtils().generateAuthKey(32);
       configLines.add(authKey);
       modified = true;
       System.out.println("Authentication Key has been generated: " + authKey);
