@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <link rel="stylesheet" href=/static/css/wikipage.css">
+</head>
+<body>
+
+<header>
+    <h1>
+        <a href="/">
+            <img src="src/main/resources/static/images/logo2.webp" alt="My page" style="width:42px;height:42px;">
+        </a>
+    </h1>
+    <form method="get" action="/search">
+        <input type="search" name="q" placeholder="Search pages...">
+    </form>
+</header>
+
+<main>
+    <aside>
+        <h3>All pages:</h3>
+        <ul>
+            ${sidebar_links}
+        </ul>
+        <hr class="solid">
+    </aside>
+
+    <article>
+        ${content}
+    </article>
+</main>
+
+<footer>
+    Website &copy; 2026
+</footer>
+
+</body>
+</html>
