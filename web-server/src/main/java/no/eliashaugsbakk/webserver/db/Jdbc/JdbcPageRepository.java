@@ -64,15 +64,23 @@ public class JdbcPageRepository implements PageRepository {
     }
 
     @Override
-    public List<Page> searchByTitle(String query) throws SQLException {
+    public List<Page> searchInTitle(String query) throws SQLException {
+
+        String sanitized = query
+                .replace("!", "!!")
+                .replace("%", "!%")
+                .replace("_", "!_");
+
         String sql =
                 """
-                SELECT slug, title FROM page WHERE title LIKE ? ORDER BY title ASC
+                SELECT slug, title FROM page 
+                WHERE title LIKE ? ESCAPE '!' 
+                ORDER BY title ASC
                 """;
         List<Page> results = new ArrayList<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + query + "%");
+            stmt.setString(1, "%" + sanitized + "%");
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {

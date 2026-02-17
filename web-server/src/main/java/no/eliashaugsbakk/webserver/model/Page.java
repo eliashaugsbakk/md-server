@@ -3,8 +3,8 @@ package no.eliashaugsbakk.webserver.model;
 import java.time.Instant;
 
 public record Page(
-        String title,
         String slug,
+        String title,
         Instant created,
         String content
 ) {}

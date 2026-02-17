@@ -9,5 +9,5 @@ public interface PageRepository {
     Page getPageBySlug(String slug) throws SQLException;
     List<Page> getAllPages() throws SQLException;
     void addPage(Page page) throws SQLException;
-    List<Page> searchByTitle(String query) throws SQLException;
+    List<Page> searchInTitle(String query) throws SQLException;
 }
