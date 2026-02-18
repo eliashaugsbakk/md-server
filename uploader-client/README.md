@@ -46,8 +46,8 @@ Would a fingerprint of the uploaded content be usefull for the server to validat
 To beguinn with, the client will feature a flag based interface:
 
 ```
-java -jar webServerUploader.jar --url http://url.onion --port 9150 --token hh23kjf --name "Page name" page.md image1.png image2.png  
-java -jar webServerUploader.jar -u http://url.onion -p 9150 -t hh23kjf -n "Page name" page.md image1.png image2.png  
+java -jar webServerUploader.jar --url http://url.onion --port 9150 --token --name "Page name" page.md image1.png image2.png  
+java -jar webServerUploader.jar -u http://url.onion -p 9150 -t -n "Page name" page.md image1.png image2.png  
 ```
 The order of the flags would probably not matter, and the distiction between markdown and images would probably be done by reading the file extentions.
 The settings flags (--url, --port, --token) would be stored in between sessions in .config/webServerUploader
