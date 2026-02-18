@@ -66,7 +66,11 @@ public class NetworkService {
 
     try (Response response = client.newCall(request).execute()) {
       System.out.println("Server is hit");
-      System.out.println("Status code: " + response.code());
+      if (response.code() == 200) {
+        System.out.println("Status code: " + response.code() + " - OK");
+      } else {
+        System.out.println("Status code: " + response.code());
+      }
     } catch (java.net.ConnectException e) {
       // This catches "Connection Refused" (Tor is off)
       System.err.println("\n[!] CONNECTION REFUSED");

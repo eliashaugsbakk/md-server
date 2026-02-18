@@ -32,7 +32,7 @@ class ConfigManagerTest {
   void defaultConfigFileIsGeneratedWhenMissing() {
 
     assertEquals("-", configManager.readUrl());
-    assertEquals(9050, configManager.readPort());
+    assertEquals(9150, configManager.readPort());
     assertEquals(32, configManager.readToken().length());
   }
 

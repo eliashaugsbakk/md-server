@@ -4,7 +4,7 @@ import no.eliashaugsbakk.uploader.config.ConfigManager;
 import no.eliashaugsbakk.uploader.exception.UploaderException;
 import no.eliashaugsbakk.uploader.model.CliInput;
 import no.eliashaugsbakk.uploader.model.NetworkConfig;
-import no.eliashaugsbakk.uploader.service.BundleService;
+import no.eliashaugsbakk.uploader.service.DataNormalizerService;
 import no.eliashaugsbakk.uploader.service.NetworkService;
 import no.eliashaugsbakk.uploader.util.AuthUtils;
 import no.eliashaugsbakk.uploader.util.HashUtils;
@@ -46,9 +46,16 @@ public class CliController {
     String token = configManager.readToken();
     int port = configManager.readPort();
 
-    if (url == null || url.equals("-") || token == null || token.equals("-") || port == 0) {
-      throw new UploaderException("Incomplete configuration. Use --setUrl, --setPort, and --setToken first.");
+    if (url == null || url.equals("-")) {
+      throw new UploaderException("Incomplete url configuration. Use --setUrl <url> to set the url.");
     }
+    if (token == null || token.equals("-")) {
+      throw new UploaderException("Incomplete token configuration. Use --setToken to generate a new token.");
+    }
+    if (port == 0) {
+      throw new UploaderException("Incomplete configuration. Use --setPort to specify the port of your local tor daemon");
+    }
+
     return new NetworkConfig(url, token, port);
   }
 
@@ -59,7 +66,11 @@ public class CliController {
     }
     if (input.port() != null) {
       configManager.setPort(input.port());
-      System.out.println("Port has been set: " + input.port());
+      if (input.port() == 9150) {
+        System.out.println("Port has been set: " + input.port() + " (Tor Browser Daemon)");
+      } else {
+        System.out.println("Port has been set: " + input.port());
+      }
     }
     if (input.generateToken()) {
       String token = new AuthUtils().generateAuthKey(32);
@@ -70,11 +81,12 @@ public class CliController {
 
   private void performUpload(NetworkService networkService, List<String> filePaths) throws Exception {
 
-    byte[] zippedFiles = new BundleService(filePaths).bundleToZip();
+    // TODO: add json to upload
+    String json = "json to upload";
 
     System.out.println("Uploading bundle...");
-    networkService.uploadBundle(zippedFiles, "Upload_" + System.currentTimeMillis(),
-        new HashUtils().calculateSHA256(zippedFiles));
+    networkService.uploadBundle(json.getBytes(), "Upload_" + System.currentTimeMillis(),
+        new HashUtils().calculateSHA256(json.getBytes()));
 
     System.out.println("Files has been uploaded.");
   }
@@ -92,10 +104,13 @@ public class CliController {
         uploadClient [option] [choice]
         
         Options:
-        [-t | --setToken]             - generates a new Authentication Token.
-        [-u | --setUrl]   <url>       - sets the host url.
-        [-p | --setPort]  <port>      - sets the port to the local Tor Daemon you have running.
-                                        (Defaults: Browser=9150, System=9050)
+        [-t | --setToken]               - generates a new Authentication Token.
+        [-u | --setUrl]   <url>         - sets the host url.
+        [-p | --setPort]  <port>/defult - sets the port to the local Tor Daemon you have running.
+        [-p | --setPort]                - sets the port to 9150 default
+        [-n | --networkTest]            - tests the network connection.
+                                          (Port default argument: Tor Browser Daemon = 9150)
+                                          (The default port of the Tor Daemon is 9050)
         """);
   }
 }

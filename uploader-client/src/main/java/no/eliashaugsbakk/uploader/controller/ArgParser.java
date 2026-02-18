@@ -56,7 +56,11 @@ public class ArgParser {
       if (p < 1 || p > 65535) throw new Exception();
       return p;
     } catch (Exception e) {
-      throw new UploaderException("Invalid port: " + val);
+      if (val.equals("default")) {
+        return 9150;
+      } else {
+        throw new UploaderException("Invalid port: " + val);
+      }
     }
   }
 }

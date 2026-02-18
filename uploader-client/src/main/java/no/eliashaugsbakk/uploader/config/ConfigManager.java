@@ -23,7 +23,7 @@ public class ConfigManager {
   }
 
   public ConfigManager() throws IOException {
-    this.configPath = Paths.get(System.getProperty("user.home"), ".config", "uploadClient", "config");
+    this.configPath = Paths.get(System.getProperty("user.home"), ".config", "webServerUploader", "config");
     setUp();
   }
 
@@ -52,9 +52,9 @@ public class ConfigManager {
     }
     if (hasKey("[port]")) {
       configLines.add("[port]");
-      configLines.add("9050");
+      configLines.add("9150");
       modified = true;
-      System.out.println("Default port: 9050 has been set.");
+      System.out.println("Default port: 9150(Tor Browser Daemon) has been set.");
     }
 
     if (modified) {
