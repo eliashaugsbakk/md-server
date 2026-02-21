@@ -1,8 +1,10 @@
 package no.eliashaugsbakk.uploader.service;
 
-import no.eliashaugsbakk.uploader.model.JsonPost;
+import no.eliashaugsbakk.uploader.model.Image;
+import no.eliashaugsbakk.uploader.model.Post;
 import org.junit.jupiter.api.Test;
 
+import java.util.Base64;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,11 +13,15 @@ public class JsonMakerTest {
     @Test
     void getJson_returns_the_expected_json_string() {
         JsonMaker jsonMaker = new JsonMaker();
-        JsonPost jsonPost = new JsonPost("Title", "<p> html string </p>", List.of("image1string", "image2string"));
+        Post jsonPost = new Post("Title", "<p> html string </p>", List.of(
+                new Image("image1", "data1".getBytes()),
+                new Image("image2", "data2".getBytes())
+        ));
         String json = jsonMaker.getJson(jsonPost);
 
         assertTrue(json.contains("Title"));
         assertTrue(json.contains("html string </p>"));
-        assertTrue(json.contains("image1string"));
+        assertTrue(json.contains("image1"));
+        assertTrue(json.contains(Base64.getEncoder().encodeToString("data1".getBytes())));
     }
 }

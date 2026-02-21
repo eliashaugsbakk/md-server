@@ -1,5 +1,6 @@
 package no.eliashaugsbakk.uploader.service;
 
+import no.eliashaugsbakk.uploader.exception.UploaderException;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -28,9 +29,9 @@ public class NetworkService {
         .build();
   }
 
-  public void uploadBundle(byte[] zipData, String fileName, String hash) throws IOException {
+  public void uploadBundle(byte[] data, String fileName, String hash) throws IOException {
     RequestBody fileBody = RequestBody.create(
-        zipData,
+        data,
         MediaType.parse("application/zip")
     );
 
@@ -48,7 +49,7 @@ public class NetworkService {
 
     try (Response response = client.newCall(request).execute()) {
       if (!response.isSuccessful()) {
-        throw new IOException("Server error: " + response.code() + " - " + response.message());
+        throw new UploaderException("Server returned " + response.code() + ": " + response.message());
       }
       assert response.body() != null;
       System.out.println("Upload successful. Server response: " + response.body().string());

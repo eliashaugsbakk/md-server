@@ -1,7 +1,7 @@
 package no.eliashaugsbakk.uploader.service;
 
 import no.eliashaugsbakk.uploader.exception.UploaderException;
-import no.eliashaugsbakk.uploader.model.ImageFile;
+import no.eliashaugsbakk.uploader.model.Image;
 import no.eliashaugsbakk.uploader.model.TextFile;
 
 import javax.imageio.ImageIO;
@@ -20,8 +20,8 @@ public class DataNormalizerService {
 
 
   private TextFile textFile = null;
-  private final List<ImageFile> imageFiles;
-  private final List<ImageFile> normalizedImageFiles;
+  private final List<Image> imageFiles;
+  private final List<Image> normalizedImageFiles;
 
   public DataNormalizerService(List<String> filePaths) throws IOException {
 
@@ -45,7 +45,7 @@ public class DataNormalizerService {
               || fileName.endsWith(".jpg")
               || fileName.endsWith(".jpeg")
               || fileName.endsWith(".bmp")) {
-        imageFiles.add(new ImageFile(fileName, fileData));
+        imageFiles.add(new Image(fileName, fileData));
       } else {
         throw new UploaderException("Unrecognized file extension: \"" + fileName + "\"");
       }
@@ -55,8 +55,12 @@ public class DataNormalizerService {
       throw new UploaderException("No file with .md extensions found");
     }
 
-    for (ImageFile image : imageFiles) {
-      normalizedImageFiles.add(normalizeImage(image));
+    for (Image image : imageFiles) {
+      try {
+        normalizedImageFiles.add(normalizeImage(image));
+      } catch (IOException e) {
+        throw new UploaderException("Error reading image file: " + e.getMessage());
+      }
     }
 
     // verify image names are present in the Markdown.
@@ -67,12 +71,12 @@ public class DataNormalizerService {
     return textFile;
   }
 
-  public List<ImageFile> getImagesFiles() {
+  public List<Image> getImagesFiles() {
     return normalizedImageFiles;
   }
 
-  private void verifyImageNaming(List<ImageFile> images, String markdownFile) {
-    for (ImageFile image : images) {
+  private void verifyImageNaming(List<Image> images, String markdownFile) {
+    for (Image image : images) {
 
       String name = image.title();
 
@@ -91,10 +95,10 @@ public class DataNormalizerService {
    * @return the normalized image
    * @throws IOException wrong image formatting will throw an IO exception
    */
-  private ImageFile normalizeImage(ImageFile imageToNormalize) throws IOException {
+  private Image normalizeImage(Image imageToNormalize) throws IOException {
     String newImageName = getNewImageName(imageToNormalize.title());
 
-    byte[] imageData = imageToNormalize.body();
+    byte[] imageData = imageToNormalize.data();
 
     BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(imageData));
     if (originalImage == null) throw new IOException("Invalid image data");
@@ -112,9 +116,10 @@ public class DataNormalizerService {
 
     try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
       ImageIO.write(outputImage, "webp", baos);
-      return new ImageFile(newImageName ,baos.toByteArray());
+      return new Image(newImageName ,baos.toByteArray());
     }
   }
+
 
   private String getNewImageName(String oldImageName) {
     String newImageName = oldImageName.replaceAll("(?i)\\.(png|jpg|jpeg|bmp)$", ".webp");

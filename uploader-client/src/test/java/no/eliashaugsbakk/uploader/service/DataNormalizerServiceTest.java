@@ -1,6 +1,5 @@
 package no.eliashaugsbakk.uploader.service;
 
-import no.eliashaugsbakk.uploader.model.ImageFile;
 import no.eliashaugsbakk.uploader.model.TextFile;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -11,16 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.HashSet;
-import java.util.Set;
 
 class DataNormalizerServiceTest {
 

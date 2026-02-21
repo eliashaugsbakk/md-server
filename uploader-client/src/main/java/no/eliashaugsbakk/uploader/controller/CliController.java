@@ -4,11 +4,14 @@ import no.eliashaugsbakk.uploader.config.ConfigManager;
 import no.eliashaugsbakk.uploader.exception.UploaderException;
 import no.eliashaugsbakk.uploader.model.CliInput;
 import no.eliashaugsbakk.uploader.model.NetworkConfig;
+import no.eliashaugsbakk.uploader.model.Post;
 import no.eliashaugsbakk.uploader.service.DataNormalizerService;
+import no.eliashaugsbakk.uploader.service.JsonMaker;
 import no.eliashaugsbakk.uploader.service.NetworkService;
 import no.eliashaugsbakk.uploader.util.AuthUtils;
 import no.eliashaugsbakk.uploader.util.HashUtils;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class CliController {
@@ -38,6 +41,7 @@ public class CliController {
       if (!input.filePaths().isEmpty()) {
         performUpload(service, input.filePaths());
       }
+
     }
   }
 
@@ -81,12 +85,21 @@ public class CliController {
 
   private void performUpload(NetworkService networkService, List<String> filePaths) throws Exception {
 
-    // TODO: add json to upload
-    String json = "json to upload";
+    DataNormalizerService dataNS = new DataNormalizerService(filePaths);
+
+    Post post = new Post(
+            dataNS.getTextFile().title(),
+            dataNS.getTextFile().body(),
+            dataNS.getImagesFiles()
+    );
+
+    String json = new JsonMaker().getJson(post);
 
     System.out.println("Uploading bundle...");
-    networkService.uploadBundle(json.getBytes(), "Upload_" + System.currentTimeMillis(),
-        new HashUtils().calculateSHA256(json.getBytes()));
+    networkService.uploadBundle(
+            json.getBytes(StandardCharsets.UTF_8),
+            "Upload_JSON_" + System.currentTimeMillis(),
+            new HashUtils().calculateSHA256(json.getBytes()));
 
     System.out.println("Files has been uploaded.");
   }

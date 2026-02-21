@@ -1,6 +1,6 @@
 package no.eliashaugsbakk.uploader.model;
 
-public record ImageFile(
+public record Image(
         String title,
-        byte[] body
+        byte[] data
 ) {}
