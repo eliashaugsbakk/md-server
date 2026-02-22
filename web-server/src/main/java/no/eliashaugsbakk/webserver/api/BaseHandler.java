@@ -30,7 +30,7 @@ public abstract class BaseHandler implements HttpHandler {
             String title = getTitle(exchange);
             String content = getContent(exchange);
 
-            String template = Files.readString(Path.of("/home/elias/Documents/projects/Website/web-server/src/main/resources/templates/wikiPage.html"));
+            String template = Files.readString(Path.of("/app/templates/wikiPage.html"));
             String finalHtml = template
                     .replace("${title}", title)
                     .replace("${content}", content)

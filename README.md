@@ -9,7 +9,6 @@ The java program saves images to: /app/data/images/. If that directory does not 
 
 /app/
 ├── database.db           ← Java only
-├── java-server.jar
 └── data/                 ← Nginx & Java Shared Volume
     ├── assets/           ← Static (CSS, Logos)
     │   ├── css/
