@@ -6,28 +6,30 @@ import no.eliashaugsbakk.utils.HashUtils;
 import no.eliashaugsbakk.utils.JsonUtils;
 import no.eliashaugsbakk.utils.Post;
 import no.eliashaugsbakk.webserver.db.TokenRepository;
+import no.eliashaugsbakk.webserver.service.PostStorageService;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class UploadHandler implements HttpHandler {
+    private final PostStorageService postStorage;
+    private final TokenRepository tokenRepo;
 
- private final TokenRepository tokenRepo;
-
-    public UploadHandler(TokenRepository tokenRepo) {
+    public UploadHandler(PostStorageService postStorage, TokenRepository tokenRepo) {
+        this.postStorage = postStorage;
         this.tokenRepo = tokenRepo;
     }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-
         String authHeader = exchange.getRequestHeaders().getFirst("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            // Bad token format
-            // TODO: send error to client
+            System.err.println("Bad token format");
+            respond(exchange,HttpURLConnection.HTTP_UNAUTHORIZED);
             return;
         }
 
@@ -35,13 +37,13 @@ public class UploadHandler implements HttpHandler {
 
         try {
             if (!tokenRepo.isValid(rawToken)) {
-                // Invalid token
-                // TODO: send error to client
+                System.err.println("Invalid token");
+                respond(exchange,HttpURLConnection.HTTP_UNAUTHORIZED);
                 return;
             }
         } catch (SQLException e) {
-            // Database error
-            // TODO: send error to client
+            System.err.println("Database error");
+            respond(exchange, HttpURLConnection.HTTP_INTERNAL_ERROR);
         }
 
 
@@ -49,13 +51,16 @@ public class UploadHandler implements HttpHandler {
         String fullBody = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
         String clientHash = getPartValue(fullBody, "sha256");
-        String jsonBundle = getPartValue(fullBody, "bundle");
+        String jsonBundle = getPartValue(fullBody, "file");
 
         try {
-            assert jsonBundle != null;
+            if (jsonBundle == null) {
+                System.err.println("Bundle is null");
+                respond(exchange,HttpURLConnection.HTTP_BAD_REQUEST);
+            }
             if (!(new HashUtils().calculateSHA256(jsonBundle.getBytes())).equals(clientHash) ) {
-                // Hash mismatch
-                // TODO: send error to client
+                System.err.println("Hash mismatch");
+                respond(exchange,HttpURLConnection.HTTP_BAD_REQUEST);
                 return;
             }
         } catch (Exception e) {
@@ -64,14 +69,27 @@ public class UploadHandler implements HttpHandler {
 
         Post post = new JsonUtils().getPost(jsonBundle);
 
-
-
-        // TODO: extract the page and images as TextFile and Image objects
-        // TODO: add the page to DB and images to disk
-
-
+        try {
+            if (!postStorage.createPage(post.title(), post.html(), post.images())) {
+                throw new IOException("Failed to create page");
+            }
+            respond(exchange,HttpURLConnection.HTTP_ACCEPTED);
+        } catch (Exception e) {
+            respond(exchange,HttpURLConnection.HTTP_INTERNAL_ERROR);
+            System.err.println("Could not add post to storage: " + e.getMessage());
+        }
     }
 
+
+    private void respond(HttpExchange exchange, int code) {
+        try {
+
+            exchange.sendResponseHeaders(code, -1);
+
+        } catch (IOException e) {
+            System.err.println("Could not send response: " + e.getMessage());
+        }
+    }
 
     /**
      * AI generated method to extract data from the http body.

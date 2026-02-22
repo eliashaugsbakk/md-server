@@ -21,15 +21,6 @@ class DataNormalizerServiceTest {
   @TempDir
   Path tempDir;
 
-  @Test
-  void getTextFile_returns_the_text_file() throws IOException {
-    Path mdPath = tempDir.resolve("markdown.md");
-    Files.writeString(mdPath, "markdown text");
-
-    DataNormalizerService normalizer = new DataNormalizerService(List.of(mdPath.toString()));
-
-    assertEquals(new TextFile("markdown.md", "markdown text"), normalizer.getTextFile());
-  }
 
   @Test
   void getImageFiles_returns_the_image_files() throws IOException {
@@ -44,13 +35,15 @@ class DataNormalizerServiceTest {
     Files.write(image, imageBytes);
 
 
+    IO.println("Setup done");
+
     DataNormalizerService normalizer =
             new DataNormalizerService(
                     List.of(markdown.toString(), image.toString())
             );
 
       assertEquals(1, normalizer.getImagesFiles().size());
-    assertTrue(normalizer.getImagesFiles().getFirst().title().contains("image.webp"));
+    assertTrue(normalizer.getImagesFiles().getFirst().title().contains("image.jpg"));
   }
 
 

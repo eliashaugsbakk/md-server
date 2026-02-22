@@ -38,7 +38,7 @@ public class DatabaseManager {
              Statement stmt = conn.createStatement()) {
             stmt.execute(sqlPages);
             stmt.execute(sqlTokens);
-            System.out.println("Database initialized successfully.");
+            IO.println("Database initialized successfully.");
         }
     }
 

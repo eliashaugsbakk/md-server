@@ -6,6 +6,7 @@ public record CliInput(
     List<String> filePaths,
     String url,
     Integer port,
+    String token,
     boolean generateToken,
     boolean networkTest,
     boolean helpRequested

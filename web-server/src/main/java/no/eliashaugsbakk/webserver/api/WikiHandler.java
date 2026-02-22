@@ -26,7 +26,8 @@ public class WikiHandler extends BaseHandler {
     @Override
     protected String getContent(HttpExchange exchange) throws Exception {
         String slug = getSlugFromPath(exchange);
+        assert pageRepo != null;
         Page page = pageRepo.getPageBySlug(slug);
-        return page.content();
+        return page.html();
     }
 }

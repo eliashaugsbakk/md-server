@@ -4,9 +4,12 @@ import no.eliashaugsbakk.uploader.controller.CliController;
 import no.eliashaugsbakk.uploader.exception.UploaderException;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 
 public class Main {
   static void main(String[] args) {
+    Instant start = Instant.now();
 
     try {
       CliController controller = new CliController();
@@ -22,8 +25,12 @@ public class Main {
       System.exit(1);
 
     } catch (Exception e) {
-      System.err.println("\n[X] CRITICAL ERROR: " + e.getLocalizedMessage());
+      System.err.println("\n[X] ERROR: " + e.getLocalizedMessage());
       System.exit(1);
+    } finally {
+      Instant finish = Instant.now();
+      long timeElapsed = Duration.between(start, finish).toMillis();
+      System.out.println("Program run time: " + timeElapsed + "ms");
     }
   }
 }

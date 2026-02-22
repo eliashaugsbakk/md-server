@@ -50,7 +50,7 @@
     </dependencies>
 
     <build>
-        <finalName>uploadClient</finalName>
+        <finalName>upload-client</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

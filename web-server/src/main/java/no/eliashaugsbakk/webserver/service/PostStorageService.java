@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.List;
 
 public class PostStorageService {
-    private final String imageDir = "/website/images/";
+    private final String imageDir = "/home/elias/Documents/projects/Website/web-server/src/main/resources/static/images";
     private final PageRepository pageRepo;
 
     public PostStorageService(PageRepository pageRepo) {
@@ -22,6 +22,9 @@ public class PostStorageService {
     }
 
     public boolean createPage(String title, String html, List<Image> images) {
+        if (title.endsWith(".md")) {
+            title = title.replace(".md", "");
+        }
         try {
             String slug = generateSlug(title);
 
@@ -34,6 +37,7 @@ public class PostStorageService {
             }
 
             Instant createdAt = Instant.now();
+
             return pageRepo.addPage(new Page(
                     slug,
                     title,

@@ -42,24 +42,24 @@ public class ConfigManager {
       String authKey = new AuthUtils().generateAuthKey(32);
       configLines.add(authKey);
       modified = true;
-      System.out.println("Authentication Key has been generated: " + authKey);
+      IO.println("Authentication Key has been generated: " + authKey);
     }
     if (hasKey("[url]")) {
       configLines.add("[url]");
       configLines.add("-");
       modified = true;
-      System.out.println("Missing url. Run: --setUrl <onion-address.onion>");
+      IO.println("Missing url. Run: --setUrl <onion-address.onion>");
     }
     if (hasKey("[port]")) {
       configLines.add("[port]");
       configLines.add("9150");
       modified = true;
-      System.out.println("Default port: 9150(Tor Browser Daemon) has been set.");
+      IO.println("Default port: 9150(Tor Browser Daemon) has been set.");
     }
 
     if (modified) {
       Files.write(configPath, configLines);
-      System.out.println("Missing configuration keys were added to: " + configPath);
+      IO.println("Missing configuration keys were added to: " + configPath);
     }
   }
 

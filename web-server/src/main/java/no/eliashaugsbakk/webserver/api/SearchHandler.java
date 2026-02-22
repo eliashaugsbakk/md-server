@@ -52,6 +52,7 @@ public class SearchHandler extends BaseHandler{
             return "<p>Empty search</p>";
         }
 
+        assert pageRepo != null;
         List<Page> results = pageRepo.searchInTitle(q);
 
         if (results.isEmpty()) {

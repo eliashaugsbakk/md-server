@@ -1,8 +1,8 @@
 package no.eliashaugsbakk.uploader.service;
 
-import no.eliashaugsbakk.uploader.model.Image;
-import no.eliashaugsbakk.uploader.model.Post;
-import no.eliashaugsbakk.uploader.utils.JsonUtils;
+import no.eliashaugsbakk.utils.Image;
+import no.eliashaugsbakk.utils.JsonUtils;
+import no.eliashaugsbakk.utils.Post;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;

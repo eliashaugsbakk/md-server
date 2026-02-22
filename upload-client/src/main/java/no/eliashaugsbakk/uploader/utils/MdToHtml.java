@@ -20,7 +20,7 @@ public class MdToHtml {
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 
         Node document = parser.parse(markdown);
-        String html = renderer.render(document);
-        return html;
+        return renderer.render(document);
     }
 }
+

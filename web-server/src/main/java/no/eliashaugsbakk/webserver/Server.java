@@ -7,6 +7,7 @@ import no.eliashaugsbakk.webserver.api.UploadHandler;
 import no.eliashaugsbakk.webserver.api.WikiHandler;
 import no.eliashaugsbakk.webserver.db.PageRepository;
 import no.eliashaugsbakk.webserver.db.TokenRepository;
+import no.eliashaugsbakk.webserver.service.PostStorageService;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
 public class Server {
     private final int port = 8000;
 
-    public void start(PageRepository pageRepo, TokenRepository tokenRepo) throws IOException {
+    public void start(PageRepository pageRepo, PostStorageService postStorage, TokenRepository tokenRepo) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         HomeHandler home = new HomeHandler(pageRepo);
@@ -28,11 +29,11 @@ public class Server {
         SearchHandler searchHandler = new SearchHandler(pageRepo);
         server.createContext("/search", searchHandler);
 
-        UploadHandler uploadHandler = new UploadHandler(tokenRepo);
+        UploadHandler uploadHandler = new UploadHandler(postStorage, tokenRepo);
         server.createContext("/upload", uploadHandler);
 
         server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
         server.start();
-        System.out.println("Server is live on port " + port);
+        IO.println("Server is live on port " + port);
     }
 }

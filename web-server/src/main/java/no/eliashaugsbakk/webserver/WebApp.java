@@ -6,22 +6,31 @@ import no.eliashaugsbakk.webserver.db.Jdbc.JdbcPageRepository;
 import no.eliashaugsbakk.webserver.db.Jdbc.JdbcTokenRepository;
 import no.eliashaugsbakk.webserver.db.PageRepository;
 import no.eliashaugsbakk.webserver.db.TokenRepository;
+import no.eliashaugsbakk.webserver.service.PostStorageService;
 
 import java.io.IOException;
 
 class WebApp {
-
-	public static void main(String[] args) throws Exception {
+	static void main(String[] args) throws Exception {
 		String dbPath = System.getenv().getOrDefault("DB_PATH", "pages.db");
 		DatabaseManager databaseManager = new DatabaseManager(dbPath);
 		PageRepository pageRepo = new JdbcPageRepository(databaseManager);
+		PostStorageService postStorage = new PostStorageService(pageRepo);
 		TokenRepository tokenRepo = new JdbcTokenRepository(databaseManager);
 
 		databaseManager.initialize();
 
+
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (arg.equals("--addToken")) {
+				tokenRepo.addToken(args[++i]);
+			}
+		}
+
 		try {
 			Server server = new Server();
-			server.start(pageRepo, tokenRepo);
+			server.start(pageRepo, postStorage, tokenRepo);
 		} catch (IOException e) {
 			System.err.println("Could not start server: " + e.getMessage());
 		}

@@ -46,14 +46,13 @@ public class NetworkService {
         .header("Authorization", "Bearer " + authToken)
         .post(requestBody)
         .build();
-    IO.println(request);
 
     try (Response response = client.newCall(request).execute()) {
       if (!response.isSuccessful()) {
         throw new UploaderException("Server returned " + response.code() + ": " + response.message());
       }
       assert response.body() != null;
-      System.out.println("Upload successful. Server response: " + response.body().string());
+      IO.println("Upload successful. Server response: " + response.body().string());
     }
   }
 
@@ -64,14 +63,14 @@ public class NetworkService {
         .get()
         .build();
 
-    System.out.println("Pinging server: " + baseUrl + " over Tor...");
+    IO.println("Pinging server: " + baseUrl);
 
     try (Response response = client.newCall(request).execute()) {
-      System.out.println("Server is hit");
+      IO.println("Server is hit");
       if (response.code() == 200) {
-        System.out.println("Status code: " + response.code() + " - OK");
+        IO.println("Status code: " + response.code() + " - OK");
       } else {
-        System.out.println("Status code: " + response.code());
+        IO.println("Status code: " + response.code());
       }
     } catch (java.net.ConnectException e) {
       // This catches "Connection Refused" (Tor is off)

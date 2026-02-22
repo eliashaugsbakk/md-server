@@ -8,6 +8,7 @@ import no.eliashaugsbakk.uploader.service.DataNormalizerService;
 import no.eliashaugsbakk.uploader.service.NetworkService;
 import no.eliashaugsbakk.uploader.utils.AuthUtils;
 import no.eliashaugsbakk.utils.HashUtils;
+import no.eliashaugsbakk.utils.Image;
 import no.eliashaugsbakk.utils.JsonUtils;
 import no.eliashaugsbakk.utils.Post;
 
@@ -68,26 +69,31 @@ public class CliController {
   private void updatePersistentConfig(CliInput input) throws IOException {
     if (input.url() != null) {
       configManager.setUrl(input.url());
-      System.out.println("Url has been set: " + input.url());
+      IO.println("Url has been set: " + input.url());
     }
     if (input.port() != null) {
       configManager.setPort(input.port());
       if (input.port() == 9150) {
-        System.out.println("Port has been set: " + input.port() + " (Tor Browser Daemon)");
+        IO.println("Port has been set: " + input.port() + " (Tor Browser Daemon)");
       } else {
-        System.out.println("Port has been set: " + input.port());
+        IO.println("Port has been set: " + input.port());
       }
     }
     if (input.generateToken()) {
       String token = new AuthUtils().generateAuthKey(32);
       configManager.setToken(token);
-      System.out.println("Token has been set: " + token);
+      IO.println("Token has been set: " + token);
+    }
+    if (input.token() != null) {
+      configManager.setToken(input.token());
+      IO.println("Token has been set: " + input.token());
     }
   }
 
   private void performUpload(NetworkService networkService, List<String> filePaths) throws Exception {
 
     DataNormalizerService dataNormalizer = new DataNormalizerService(filePaths);
+
 
     Post post = new Post(
             dataNormalizer.getTextFile().title(),
@@ -97,17 +103,17 @@ public class CliController {
 
     String json = new JsonUtils().getJson(post);
 
-    System.out.println("Uploading file(s)...");
+    IO.println("Uploading file(s)...");
     networkService.uploadBundle(
             json.getBytes(StandardCharsets.UTF_8),
             "Upload_JSON_" + System.currentTimeMillis(),
             new HashUtils().calculateSHA256(json.getBytes()));
 
-    System.out.println("File(s) have been uploaded.");
+    IO.println("File(s) have been uploaded.");
   }
 
   private void printHelp() {
-    System.out.println("""
+    IO.println("""
         Help:
         uploadClient [-h | --help]
         

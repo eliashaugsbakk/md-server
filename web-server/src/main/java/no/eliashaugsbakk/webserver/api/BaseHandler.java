@@ -30,15 +30,17 @@ public abstract class BaseHandler implements HttpHandler {
             String title = getTitle(exchange);
             String content = getContent(exchange);
 
-            String template = Files.readString(Path.of("src/main/resources/templates/wikiPage.html"));
+            String template = Files.readString(Path.of("/home/elias/Documents/projects/Website/web-server/src/main/resources/templates/wikiPage.html"));
             String finalHtml = template
                     .replace("${title}", title)
                     .replace("${content}", content)
                     .replace("${sidebar_links}", sidebarHtml);
 
+
             sendResponse(exchange, 200, finalHtml);
 
         } catch (Exception e) {
+            System.err.println("Error handling request: " + e.getMessage());
             exchange.sendResponseHeaders(500, -1);
         } finally {
             exchange.close();
@@ -69,6 +71,7 @@ public abstract class BaseHandler implements HttpHandler {
 
     // Helper: Shared response logic
     protected void sendResponse(HttpExchange exchange, int statusCode, String content) throws IOException {
+
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
         exchange.sendResponseHeaders(statusCode, bytes.length);
